@@ -1,0 +1,117 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using Ecommerce.Models;
+
+<section class="content-header">
+    <h1>
+        Список объявлений
+    </h1>
+</section>
+
+<section class="content">
+
+    @if (TempData["error"] != null)
+    { 
+        <div class="row">
+            <div class="col-xs-12"> 
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">X</button>
+                    <h4><i class="icon fa fa-ban"></i> Failed!</h4>
+                    Deleted Failed!
+                    <p>@TempData["error"]</p>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="row">
+
+        <div class="col-xs-12">
+
+            <div class="box">
+                <div class="box-header">
+                </div>
+
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="productListTable" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Номер</th>
+                                <th>Название</th>
+                                <th>Фото</th>
+                                <th>Цена</th>
+                                <th>Статус</th>
+                                <th>В топе</th>
+                                <th>Категория</th>
+                                <th>Действие</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var product in ViewBag.Products)
+                            {
+                                Product pr = (Product)product;
+                                var photo = pr.Photos.SingleOrDefault(p => p.Featured == true);
+
+                                <tr>
+                                    <td>@product.Id</td>
+                                    <td>@product.Name</td>
+                                    <td>
+                                        <img src="~/products/@photo.Name" width="120" />
+                                    </td>
+                                    <td>@product.Price</td>
+                                    <td>@(product.Status ? "Show" : "Hide")</td>
+                                    <td>@(product.Featured ? "+" : "")</td>
+                                    <td>@(product.Category.Name)</td>
+                                    <td>
+                                        <a asp-area="admin" asp-controller="product" asp-action="edit" asp-route-id="@product.Id">Изменить</a> <span>|</span>
+
+                                        <a asp-area="admin" asp-controller="product" asp-action="delete" asp-route-id="@product.Id" onclick="return confirm('Вы уверены?')">Удалить</a> <span>|</span>
+
+                                        <a asp-area="admin" asp-controller="photo" asp-action="index" asp-route-id="@product.Id">Фото</a> <span>|</span>
+
+                                        <a asp-area="admin" asp-controller="photo" asp-action="add" asp-route-id="@product.Id">Управление фото</a> <span>|</span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Номер</th>
+                                <th>Название</th>
+                                <th>Фото</th>
+                                <th>Цена</th>
+                                <th>Статус</th>
+                                <th>В топе</th>
+                                <th>Категория</th>
+                                <th>Действие</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<script>
+    $(function () {
+        $('#productListTable').DataTable({
+        'paging': true,
+        'lengthChange': false,
+        'searching': false,
+        'ordering': true,
+        'info': true,
+        'autoWidth': false
+    })
+})
+</script>

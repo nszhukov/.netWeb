@@ -1,0 +1,74 @@
+﻿@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+@model Ecommerce.Models.Account;
+
+<ul class="breadcrumb">
+    <li><a asp-controller="home" asp-action="index">Главная</a> <span class="divider">/</span></li>
+    <li class="active">Регистрация</li>
+</ul>
+<h3>Регистрация</h3>
+<div class="well">
+
+    @if (ViewBag.error != null)
+    {
+        <div class="alert alert-error">
+            <p>
+                @ViewBag.error
+            </p>
+        </div>
+    }
+
+<form class="form-horizontal" asp-controller="customer" asp-action="register" method="post">
+
+    <div class="control-group">
+        <label class="control-label" for="username">Имя пользователя<sup>*</sup></label>
+        <div class="controls">
+            <input type="text" id="username" placeholder="Username" required="required" asp-for="UserName">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="password">Пароль<sup>*</sup></label>
+        <div class="controls">
+            <input type="password" id="password" placeholder="Password" required="required" asp-for="Password">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="fullName">Имя Фамилия<sup>*</sup></label>
+        <div class="controls">
+            <input type="text" id="fullName" placeholder="Full Name" required="required" asp-for="FullName">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="email">Эл. почта<sup>*</sup></label>
+        <div class="controls">
+            <input type="email" id="email" placeholder="Email" required="required" asp-for="Email">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="address">Город<sup>*</sup></label>
+        <div class="controls">
+            <input type="text" id="address" placeholder="Address" required="required" asp-for="Address">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label" for="phone">Номер телефона<sup>*</sup></label>
+        <div class="controls">
+            <input type="tel" id="phone" placeholder="Phone" required="required" asp-for="Phone">
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <input class="btn btn-large btn-success" type="submit" value="Сохранить">
+        </div>
+    </div>
+</form>
+</div>

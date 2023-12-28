@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model Ecommerce.Models.Photo
+
+<section class="content-header">
+    <h1>
+        Добавьте фото вашего @ViewBag.Product.Name
+    </h1>
+</section>
+
+<section class="content">
+
+    <div class="row">
+
+        <div class="col-xs-12">
+
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Загрузить с устройства</h3>
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form method="post" asp-area="admin" asp-controller="photo" asp-action="add" enctype="multipart/form-data">
+                    <div class="box-body">
+
+                        <div class="form-group">
+                            <label for="exampleInputFile"></label>
+                            <input type="file" id="exampleInputFile" name="fileUpload" accept="image/*">
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" asp-for="Status"> Главное фото
+                            </label>
+                        </div>
+
+                    </div>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Готово</button>
+                        <input type="hidden" asp-for="ProductId" />
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

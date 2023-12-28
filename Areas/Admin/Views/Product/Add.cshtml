@@ -1,0 +1,90 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model Ecommerce.Areas.Admin.Models.ViewModels.ProductViewModel
+
+<section class="content-header">
+    <h1>
+        Подать объявление
+    </h1>
+</section>
+
+<section class="content">
+
+    <div class="row">
+
+        <div class="col-xs-12">
+
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form method="post" asp-area="admin" asp-controller="product" asp-action="add" enctype="multipart/form-data">
+                    <div class="box-body">
+
+                        <div class="form-group">
+                            <label for="name">Марка, модель, поколение (кузов)</label>
+                            <input type="text" class="form-control" asp-for="Product.Name" required="required">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Технические характеристики</label>
+                            <textarea class="form-control" rows="3" asp-for="Product.Description"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Пара слов о вашем автомобиле</label>
+                            <textarea class="form-control" rows="3" asp-for="Product.Details"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Цена</label>
+                            <input type="number" class="form-control" asp-for="Product.Price" required="required" min="0">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">VIN-номер кузова (обязательно, согласно правил сервиса)</label>
+                            <input type="text" class="form-control" asp-for="Product.Quantity" required="required">
+                        </div>
+
+                        <!--<div class="form-group">
+                            <label for="exampleInputFile">Photo</label>
+                            <input type="file" id="exampleInputFile" name="photo" accept="image/*">
+                        </div>-->
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" asp-for="Product.Status"> Модерация пройдена
+                            </label>
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" asp-for="Product.Featured"> Разместить в топ объявлениях (если оплата произведена)
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Выберите марку и модель из списка</label>
+                            <select class="form-control" asp-for="Product.CategoryId" asp-items="@Model.Categories">
+                                
+                            </select>
+                        </div>
+
+                    </div>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Готово</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

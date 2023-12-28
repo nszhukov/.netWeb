@@ -1,0 +1,98 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content-header">
+    <h1>
+        Фотографии @ViewBag.Product.Name 
+    </h1>
+</section>
+
+<section class="content">
+
+    <div class="row">
+
+        <div class="col-xs-12">
+
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Список фото</h3>
+                </div>
+
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="photoListTable" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Номер</th>
+                                <th>Фото</th>
+                                <th>Активно </th>
+                                <th>Главное</th>
+                                <th>Действие</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var photo in ViewBag.Photos)
+                            {
+                                <tr>
+                                    <td>@photo.Id</td>
+                                    <td>
+                                        <img src="~/products/@photo.Name" width="120" />
+                                    </td>
+                                    <td>@(photo.Status ? "Show" : "Hide")</td>
+                                    <td>
+                                        @if (!photo.Featured)
+                                        {
+                                            <a asp-area="admin" asp-controller="photo" asp-action="setfeatured" asp-route-id="@photo.Id" asp-route-productId="@photo.ProductId">Сделать главным</a>
+                                        }
+                                        else
+                                        {
+                                            <span>Featured</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a asp-area="admin" asp-controller="photo" asp-action="edit" asp-route-id="@photo.Id" asp-route-productId="@photo.ProductId">Изменить</a>
+
+                                        @if (!photo.Featured)
+                                        {
+                                            <span>|</span><a asp-area="admin" asp-controller="photo" asp-action="delete" asp-route-id="@photo.Id" asp-route-productId="@photo.ProductId" onclick="return confirm('Вы уверены?')">Удалить</a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Номер</th>
+                                <th>Фото</th>
+                                <th>Активно </th>
+                                <th>Главное</th>
+                                <th>Действие</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<script>
+    $(function () {
+        $('#photoListTable').DataTable({
+        'paging': true,
+        'lengthChange': false,
+        'searching': false,
+        'ordering': true,
+        'info': true,
+        'autoWidth': false
+    })
+})
+</script>

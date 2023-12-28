@@ -1,0 +1,89 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content-header">
+    <h1>
+        Список пользователей
+    </h1>
+</section>
+
+<section class="content">
+
+    <div class="row">
+
+        <div class="col-xs-12">
+
+            <div class="box">
+                <div class="box-header">
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="customerListTable" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Номер</th>
+                                <th>Имя пользователя</th>
+                                <th>Полное имя </th>
+                                <th>Эл.почта</th>
+                                <th>Город</th>
+                                <th>Телефон</th>
+                                <th>Статус</th>
+                                <th>Действие</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var customer in ViewBag.Customers)
+                            {
+                                <tr>
+                                    <td>@customer.Id</td>
+                                    <td>@customer.UserName</td>
+                                    <td>@customer.FullName</td>
+                                    <td>@customer.Email</td>
+                                    <td>@customer.Address</td>
+                                    <td>@customer.Phone</td>
+                                    <td>@(customer.Status ? "Active" : "Inactive")</td>
+                                    <td>
+                                        <a asp-area="admin" asp-controller="customer" asp-action="edit" asp-route-id="@customer.Id">Изменить</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <<th>Номер</th>
+                                <th>Имя пользователя</th>
+                                <th>Полное имя </th>
+                                <th>Эл.почта</th>
+                                <th>Город</th>
+                                <th>Телефон</th>
+                                <th>Статус</th>
+                                <th>Действие</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<script>
+    $(function () {
+        $('#customerListTable').DataTable({
+        'paging': true,
+        'lengthChange': false,
+        'searching': false,
+        'ordering': true,
+        'info': true,
+        'autoWidth': false
+    })
+})
+</script>
